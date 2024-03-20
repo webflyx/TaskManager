@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Project;
+use App\Models\Task;
 use App\Models\User;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -23,5 +24,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Project::factory(10)->create();
+
+        Task::factory(100)->create();
     }
 }
