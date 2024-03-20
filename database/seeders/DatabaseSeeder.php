@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Project;
 use App\Models\User;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -20,5 +21,7 @@ class DatabaseSeeder extends Seeder
             'username' => 'serg',
             'email' => 'serg18@gmail.com',
         ]);
+
+        Project::factory(10)->create();
     }
 }
