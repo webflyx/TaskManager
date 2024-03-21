@@ -63,9 +63,12 @@ class ProjectController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified resource
+     *
+     * @param Project $project
+     * @return JsonResponse
      */
-    public function show(Project $project)
+    public function show(Project $project): JsonResponse
     {
         try {
             return ResponseSupport::success([
@@ -82,8 +85,13 @@ class ProjectController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param Project $project
+     * @param UpdateProjectRequest $request
+     * @param ProjectService $service
+     * @return JsonResponse
      */
-    public function update(Project $project, UpdateProjectRequest $request, ProjectService $service)
+    public function update(Project $project, UpdateProjectRequest $request, ProjectService $service): JsonResponse
     {
         try {
             $service->update($project, $request->validated());
