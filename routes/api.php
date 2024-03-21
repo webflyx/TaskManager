@@ -37,8 +37,11 @@ Route::prefix('v1')->group(function () {
             Route::delete('/{project}', [ProjectController::class, 'destroy']);
 
             // Tasks
+            Route::get('/{project}/tasks', [TaskController::class, 'index']);
             Route::post('/{project}/tasks', [TaskController::class, 'store']);
-            Route::delete('/{project}/task/{task}', [TaskController::class, 'destroy']);
+            Route::get('/{project}/tasks/{task}', [TaskController::class, 'show']);
+            Route::patch('/{project}/tasks/{task}', [TaskController::class, 'update']);
+            Route::delete('/{project}/tasks/{task}', [TaskController::class, 'destroy']);
 
         });
 

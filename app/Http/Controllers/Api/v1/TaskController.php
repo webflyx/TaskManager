@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTaskRequest;
+use App\Http\Requests\UpdateProjectRequest;
+use App\Http\Requests\UpdateTaskRequest;
+use App\Http\Resources\TaskResource;
 use App\Models\Project;
 use App\Models\Task;
 use App\Services\TaskService;
@@ -17,10 +20,24 @@ class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @param int $project
+     * @param TaskService $service
+     * @return JsonResponse
      */
-    public function index()
+    public function index(int $project, TaskService $service)
     {
-        //
+        try {
+            return ResponseSupport::success([
+                ...$service->index($project)
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return ResponseSupport::error([
+                'message' => __('response.' . 'Something went wrong')
+            ]);
+        }
     }
 
     /**
@@ -49,19 +66,51 @@ class TaskController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Display the specified resource
+     *
+     * @param int $project
+     * @param Task $task
+     * @return JsonResponse
      */
-    public function edit(Task $task)
+    public function show(int $project, Task $task): JsonResponse
     {
-        //
+        try {
+            return ResponseSupport::success([
+                'task' => new TaskResource($task)
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return ResponseSupport::error([
+                'message' => __('response.' . 'Something went wrong')
+            ]);
+        }
     }
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param int $project
+     * @param Task $task
+     * @param UpdateTaskRequest $request
+     * @param TaskService $service
+     * @return JsonResponse
      */
-    public function update(Request $request, Task $task)
+    public function update(int $project, Task $task, UpdateTaskRequest $request, TaskService $service)
     {
-        //
+        try {
+            $service->update($task, $request->validated());
+
+            return ResponseSupport::success([
+                'message' => __('response.' . 'Task updated')
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return ResponseSupport::error([
+                'message' => __('response.' . 'Something went wrong')
+            ]);
+        }
     }
 
     /**
