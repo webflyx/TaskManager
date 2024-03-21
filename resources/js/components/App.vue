@@ -3,7 +3,7 @@
 </script>
 
 <template>
-Hello
+<div class="accent-green-700">Hello</div>
 </template>
 
 <style scoped>
