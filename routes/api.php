@@ -30,7 +30,10 @@ Route::prefix('v1')->group(function () {
         // Projects
         Route::prefix('projects')->group(function () {
 
+            Route::get('/', [ProjectController::class, 'index']);
             Route::post('/', [ProjectController::class, 'store']);
+            Route::get('/{project}', [ProjectController::class, 'show']);
+            Route::patch('/{project}', [ProjectController::class, 'update']);
             Route::delete('/{project}', [ProjectController::class, 'destroy']);
 
             // Tasks
