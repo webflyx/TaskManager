@@ -9,14 +9,14 @@ use App\Http\Resources\ProjectResource;
 use App\Models\Project;
 use App\Services\ProjectService;
 use App\Supports\ResponseSupport;
+use App\Traits\ServerException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Support\Facades\Log;
 use Throwable;
 
 class ProjectController extends Controller
 {
+    use ServerException;
     /**
      * Display a listing of the resource.
      *
@@ -31,10 +31,7 @@ class ProjectController extends Controller
             ]);
 
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return ResponseSupport::error([
-                'message' => __('response.' . 'Something went wrong')
-            ]);
+            return self::serverException($e->getMessage());
         }
     }
 
@@ -55,10 +52,7 @@ class ProjectController extends Controller
             ]);
 
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return ResponseSupport::error([
-                'message' => __('response.' . 'Something went wrong')
-            ]);
+            return self::serverException($e->getMessage());
         }
     }
 
@@ -76,10 +70,7 @@ class ProjectController extends Controller
             ]);
 
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return ResponseSupport::error([
-                'message' => __('response.' . 'Something went wrong')
-            ]);
+            return self::serverException($e->getMessage());
         }
     }
 
@@ -101,10 +92,7 @@ class ProjectController extends Controller
             ]);
 
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return ResponseSupport::error([
-                'message' => __('response.' . 'Something went wrong')
-            ]);
+            return self::serverException($e->getMessage());
         }
     }
 
@@ -126,10 +114,7 @@ class ProjectController extends Controller
             ]);
 
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return ResponseSupport::error([
-                'message' => __('response.' . 'Something went wrong')
-            ]);
+            return self::serverException($e->getMessage());
         }
     }
 }

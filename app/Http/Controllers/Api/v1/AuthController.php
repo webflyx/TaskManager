@@ -8,12 +8,14 @@ use App\Http\Requests\AuthEmailRequest;
 use App\Http\Resources\UserResource;
 use App\Services\AuthService;
 use App\Supports\ResponseSupport;
+use App\Traits\ServerException;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
+    use ServerException;
+
     /**
      * Login user by Email
      *
@@ -38,10 +40,7 @@ class AuthController extends Controller
                     'message' => __('response.' . $e->getMessage()),
                 ], 401);
         } catch (Exception $e) {
-            Log::error($e->getMessage());
-            return ResponseSupport::error([
-                'message' => __('response.Something went wrong')
-            ]);
+            return self::serverException($e->getMessage());
         }
     }
 
@@ -59,10 +58,7 @@ class AuthController extends Controller
                 'message' => __('response.' . 'Logged out successfully')
             ]);
         } catch (Exception $e) {
-            Log::error($e->getMessage());
-            return ResponseSupport::error([
-                'message' => __('response.Something went wrong')
-            ]);
+            return self::serverException($e->getMessage());
         }
     }
 }

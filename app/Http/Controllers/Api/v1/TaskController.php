@@ -4,20 +4,19 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTaskRequest;
-use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Http\Resources\TaskResource;
 use App\Models\Project;
 use App\Models\Task;
 use App\Services\TaskService;
 use App\Supports\ResponseSupport;
+use App\Traits\ServerException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Throwable;
 
 class TaskController extends Controller
 {
+    use ServerException;
     /**
      * Display a listing of the resource.
      *
@@ -33,10 +32,7 @@ class TaskController extends Controller
             ]);
 
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return ResponseSupport::error([
-                'message' => __('response.' . 'Something went wrong')
-            ]);
+            return self::serverException($e->getMessage());
         }
     }
 
@@ -58,10 +54,7 @@ class TaskController extends Controller
             ]);
 
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return ResponseSupport::error([
-                'message' => __('response.'.'Something went wrong')
-            ]);
+            return self::serverException($e->getMessage());
         }
     }
 
@@ -80,10 +73,7 @@ class TaskController extends Controller
             ]);
 
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return ResponseSupport::error([
-                'message' => __('response.' . 'Something went wrong')
-            ]);
+            return self::serverException($e->getMessage());
         }
     }
 
@@ -106,10 +96,7 @@ class TaskController extends Controller
             ]);
 
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return ResponseSupport::error([
-                'message' => __('response.' . 'Something went wrong')
-            ]);
+            return self::serverException($e->getMessage());
         }
     }
 
@@ -132,10 +119,7 @@ class TaskController extends Controller
             ]);
 
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return ResponseSupport::error([
-                'message' => __('response.'.'Something went wrong')
-            ]);
+            return self::serverException($e->getMessage());
         }
     }
 }

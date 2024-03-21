@@ -6,13 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterUserByEmailRequest;
 use App\Services\RegisterService;
 use App\Supports\ResponseSupport;
+use App\Traits\ServerException;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class RegisterController extends Controller
 {
+    use ServerException;
 
     /**
      * @param RegisterUserByEmailRequest $request
@@ -30,10 +30,7 @@ class RegisterController extends Controller
             ]);
 
         } catch (Exception $e) {
-            Log::error($e->getMessage());
-            return ResponseSupport::error([
-                'message' => __('response.Something went wrong')
-            ]);
+            return self::serverException($e->getMessage());
         }
     }
 }
