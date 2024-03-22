@@ -27,6 +27,8 @@ class ProjectService
             'meta' => [
               'total_pages' => $projects->lastPage(),
               'total_items' => $projects->total(),
+              'per_page' => $projects->perPage(),
+              'curr_page' => $projects->currentPage(),
             ],
         ];
     }

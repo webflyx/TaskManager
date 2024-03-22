@@ -14,7 +14,7 @@ class TaskService
      */
     public function index($project): array
     {
-        $tasks = Task::where('project_id', $project)->paginate(2);
+        $tasks = Task::where('project_id', $project)->orderBy('created_at', 'desc')->paginate(2);
 
         return [
             'tasks' => TaskResource::collection($tasks),
@@ -25,6 +25,8 @@ class TaskService
             'meta' => [
                 'total_pages' => $tasks->lastPage(),
                 'total_items' => $tasks->total(),
+                'per_page' => $tasks->perPage(),
+                'curr_page' => $tasks->currentPage(),
             ],
         ];
     }
