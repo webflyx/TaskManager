@@ -13,7 +13,7 @@ export const userStore = reactive({
           await axios
                 .post('/api/v1/user-data', [], {
                     "headers": {
-                        "Authorization": Auth.token
+                        "Authorization": "Bearer " + Auth.token
                     }
                 })
                 .then(response => {
