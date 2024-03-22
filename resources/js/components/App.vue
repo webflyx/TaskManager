@@ -1,9 +1,10 @@
 <script setup>
-
+import Header from "./UI/Header.vue";
 </script>
 
 <template>
-<div class="accent-green-700">Hello</div>
+    <Header :currentPage="$route.name" />
+    <RouterView />
 </template>
 
 <style scoped>

@@ -1,6 +1,13 @@
 import {createRouter, createWebHistory} from "vue-router";
 import {userStore} from "./store.js";
+import Login from "./components/Login.vue";
+import Auth from "./helpers/auth.js";
+import Register from "./components/Register.vue";
+import Projects from "./components/Projects.vue";
+import Project from "./components/Project.vue";
+import Task from "./components/Task.vue";
 import App from "./components/App.vue";
+import Page404 from "./components/Page404.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -8,22 +15,63 @@ const router = createRouter({
         {
             path: '/',
             name: 'home',
-            component: App
+            component: Login
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: Login
+        },
+        {
+            path: '/register',
+            name: 'register',
+            component: Register
         },
 
-        // {
-        //     path: '/account',
-        //     name: 'account',
-        //     component: Account,
-        //     meta: {
-        //         requiresAuth: true
-        //     }
-        // },
+        {
+            path: '/projects',
+            name: 'projects',
+            component: Projects,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/project/:id',
+            name: 'project',
+            component: Project,
+            meta: {
+                requiresAuth: true
+            }
+        },
+
+        {
+            path: '/tasks',
+            name: 'tasks',
+            component: Login,
+            meta: {
+                requiresAuth: true
+            }
+        },
+
+        {
+            path: '/project/:id/task/:taskId',
+            name: 'task',
+            component: Task,
+            meta: {
+                requiresAuth: true
+            }
+        },
+
+        {
+            path: '/:catchAll(.*)',
+            component: Page404
+        }
     ]
 })
 
 
-router.beforeEach( (to, from, next) => {
+router.beforeEach((to, from, next) => {
 
     async function middleware() {
 
