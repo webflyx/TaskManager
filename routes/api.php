@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
 
+    Route::post('user-data', [AuthController::class, 'userData'])->middleware(['auth:api']);
+
     // Auth
     Route::prefix('auth')->group(function () {
         Route::post('/email', [AuthController::class, 'loginByEmail']);

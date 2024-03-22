@@ -55,4 +55,18 @@ class AuthService
 
         return false;
     }
+
+    /**
+     * @return array
+     */
+    public function userData(): array
+    {
+        $user = auth()->user();
+        $userData = [
+            'username' => $user->username,
+            'email' => $user->email,
+        ];
+
+        return $userData;
+    }
 }

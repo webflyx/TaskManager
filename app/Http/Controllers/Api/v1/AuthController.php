@@ -7,10 +7,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthEmailRequest;
 use App\Http\Resources\UserResource;
 use App\Services\AuthService;
+use App\Services\LoginService;
 use App\Supports\ResponseSupport;
 use App\Traits\ServerException;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -37,7 +39,10 @@ class AuthController extends Controller
         } catch (AuthException $e) {
             return ResponseSupport::error(
                 [
-                    'message' => __('response.' . $e->getMessage()),
+                    'errors' =>
+                    [
+                        'error' => __('response.' . $e->getMessage())
+                    ],
                 ], 401);
         } catch (Exception $e) {
             return self::serverException($e->getMessage());
@@ -56,6 +61,22 @@ class AuthController extends Controller
             $service->logout();
             return ResponseSupport::success([
                 'message' => __('response.' . 'Logged out successfully')
+            ]);
+        } catch (Exception $e) {
+            return self::serverException($e->getMessage());
+        }
+    }
+
+    /**
+     * @param AuthService $service
+     * @return JsonResponse
+     */
+    public function userData(AuthService $service): JsonResponse
+    {
+        try {
+            $userData = $service->userData();
+            return ResponseSupport::success(params: [
+                ...$userData
             ]);
         } catch (Exception $e) {
             return self::serverException($e->getMessage());
