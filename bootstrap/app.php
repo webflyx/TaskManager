@@ -15,5 +15,17 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        $exceptions->render(function (\Illuminate\Auth\AuthenticationException $e) {
+                return response()->json([
+                    'success' => false,
+                    'message' => __('response.'.'Unauthenticated')
+                ], 401);
+        });
+        $exceptions->render(function (\Symfony\Component\HttpKernel\Exception\NotFoundHttpException $e) {
+                return response()->json([
+                    'success' => false,
+                    'message' => __('response.'.'Record not found')
+                ], 404);
+        });
+
     })->create();
