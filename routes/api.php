@@ -39,7 +39,7 @@ Route::prefix('v1')->group(function () {
             Route::delete('/{project}', [ProjectController::class, 'destroy'])->middleware('can:delete,project');
 
             // Tasks
-            Route::get('/{project}/tasks', [TaskController::class, 'index'])->middleware('can:viewAny,project');
+            Route::get('/{project}/tasks', [TaskController::class, 'index'])->middleware('can:viewAny,App\Models\Task,project');
             Route::post('/{project}/tasks', [TaskController::class, 'store'])->middleware('can:create,App\Models\Task,project');
             Route::get('/{project}/tasks/{task}', [TaskController::class, 'show'])->middleware('can:view,task');
             Route::patch('/{project}/tasks/{task}', [TaskController::class, 'update'])->middleware('can:update,task');

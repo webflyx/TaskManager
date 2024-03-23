@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Project;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -11,9 +12,9 @@ class TaskPolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user, $project): bool
+    public function viewAny(User $user, int $project): bool
     {
-        return $user->id === $project->user_id;
+        return $user->id === Project::where('id', $project)->first()->user_id;
     }
 
     /**
