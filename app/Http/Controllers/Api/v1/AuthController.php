@@ -7,12 +7,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthEmailRequest;
 use App\Http\Resources\UserResource;
 use App\Services\AuthService;
-use App\Services\LoginService;
 use App\Supports\ResponseSupport;
 use App\Traits\ServerException;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
