@@ -11,9 +11,9 @@ class TaskPolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(User $user, $project): bool
     {
-        return true;
+        return $user->id === $project->user_id;
     }
 
     /**

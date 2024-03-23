@@ -16,7 +16,7 @@ class ProjectService
     public function index(): array
     {
 
-        $projects = Project::where('user_id', auth()->user()->id)->paginate(2);
+        $projects = Project::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->paginate(2);
 
         return [
             'projects' => ProjectResource::collection($projects),
