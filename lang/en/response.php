@@ -9,5 +9,8 @@ return [
     'Project deleted' => 'Project deleted',
     'New task created' => 'New task created',
     'Task updated' => 'Task updated',
-    'Task deleted' => 'Task deleted'
+    'Task deleted' => 'Task deleted',
+    'Logged out successfully' => 'Logged out successfully',
+    'Unauthenticated' => 'Unauthenticated',
+    'Record not found' => 'Record not found',
 ];
