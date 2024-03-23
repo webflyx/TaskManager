@@ -11,7 +11,7 @@ export const userStore = reactive({
     async getUser(){
         if(Auth.check() && this.userData.username === '') {
           await axios
-                .post('/api/v1/user-data', [], {
+                .get('/api/v1/user-data', [], {
                     "headers": {
                         "Authorization": "Bearer " + Auth.token
                     }
