@@ -15,7 +15,9 @@ const router = createRouter({
         {
             path: '/',
             name: 'home',
-            component: Login
+            redirect: () => {
+                return Auth.check() ? {name: 'projects'} : {name: 'login'}
+            }
         },
         {
             path: '/login',
@@ -27,7 +29,6 @@ const router = createRouter({
             name: 'register',
             component: Register
         },
-
         {
             path: '/projects',
             name: 'projects',
@@ -44,7 +45,6 @@ const router = createRouter({
                 requiresAuth: true
             }
         },
-
         {
             path: '/tasks',
             name: 'tasks',
@@ -53,7 +53,6 @@ const router = createRouter({
                 requiresAuth: true
             }
         },
-
         {
             path: '/project/:id/task/:taskId',
             name: 'task',
@@ -65,6 +64,7 @@ const router = createRouter({
 
         {
             path: '/:catchAll(.*)',
+            name: '404',
             component: Page404
         }
     ]

@@ -25,7 +25,10 @@ function getTask() {
 
         })
         .catch((error) => {
-            console.log(error.response.data);
+            if(error.response.status  >= 400) {
+                router.push(Auth.check() ? {name: 'projects'} : {name: 'login'})
+            }
+            // console.log(error.response.data);
         });
 }
 getTask();

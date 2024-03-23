@@ -27,10 +27,12 @@ function getProject() {
         })
         .then(response => {
             project.value = response.data.project;
-
         })
         .catch((error) => {
-            console.log(error.response.data);
+            if(error.response.status >= 400) {
+                router.push(Auth.check() ? {name: 'projects'} : {name: 'login'})
+            }
+            // console.log(error.response.data);
         });
 }
 
@@ -46,7 +48,7 @@ function getTasks() {
             currentPage.value = response.data.meta.curr_page
         })
         .catch((error) => {
-            console.log(error.response.data);
+            // console.log(error.response.data);
         });
 }
 
@@ -133,25 +135,27 @@ function deleteProject() {
             <h1 class="text-2xl text-bold border-b-2 pb-2">Project: {{ project.title }}</h1>
             <div class="mt-4 text-sm text-gray-700" v-if="project.description">{{ project.description }}</div>
 
-            <h2 class="text-xl text-bold mt-12 border-b-2 pt-2">Task List</h2>
-            <ul role="list" class="divide-y divide-gray-100">
-                <li v-for="task in tasksData.tasks" :key="task.id" class="flex justify-between gap-x-6 py-5">
-                    <router-link :to="{name: 'task', params: {id: project.id, taskId: task.id}}">
-                        <div class="flex min-w-0 gap-x-4">
-                            <div class="min-w-0 flex-auto">
-                                <p class="text-sm leading-6 text-gray-900 flex items-center gap-8">
-                                    <span class="font-semibold ">{{ task.title }}</span>
-                                    <TaskStatus :status="task.status" />
-                                </p>
-                                <p class="mt-1  text-xs leading-5 text-gray-500">{{ task.description }}</p>
-                                <TaskDates :created="task.created_at" :updated="task.updated_at" />
+            <template v-if="tasksData?.tasks?.length > 0">
+                <h2 class="text-xl text-bold mt-12 border-b-2 pt-2">Task List</h2>
+                <ul role="list" class="divide-y divide-gray-100">
+                    <li v-for="task in tasksData.tasks" :key="task.id" class="flex justify-between gap-x-6 py-5">
+                        <router-link :to="{name: 'task', params: {id: project.id, taskId: task.id}}">
+                            <div class="flex min-w-0 gap-x-4">
+                                <div class="min-w-0 flex-auto">
+                                    <p class="text-sm leading-6 text-gray-900 flex items-center gap-8">
+                                        <span class="font-semibold ">{{ task.title }}</span>
+                                        <TaskStatus :status="task.status" />
+                                    </p>
+                                    <p class="mt-1  text-xs leading-5 text-gray-500">{{ task.description }}</p>
+                                    <TaskDates :created="task.created_at" :updated="task.updated_at" />
+                                </div>
                             </div>
-                        </div>
-                    </router-link>
-                </li>
-            </ul>
+                        </router-link>
+                    </li>
+                </ul>
+            </template>
 
-            <Pagination itemName="tasks" :totalItems="tasksData.meta?.total_items"
+            <Pagination v-if="tasksData.meta?.total_pages > 1" itemName="tasks" :totalItems="tasksData.meta?.total_items"
                         :nextUrl="tasksData.links?.next_url"
                         :prevUrl="tasksData.links?.prev_url"
                         :totalPages="tasksData.meta?.total_pages"
