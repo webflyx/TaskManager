@@ -85,6 +85,11 @@ function login() {
                              class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Create new account
                 </router-link>
             </p>
+            <div class="mt-10 text-center text-sm text-gray-500">
+                <div class="font-bold text-lg">Factory data:</div>
+                <div>email: admin@gmail.com</div>
+                <div>password: password</div>
+            </div>
         </div>
     </div>
 </template>

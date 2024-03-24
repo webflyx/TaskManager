@@ -49,7 +49,7 @@
             "@php artisan migrate --graceful --ansi"
         ],
         "passport":[
-            "php artisan passport:client --personal"
+            "php artisan passport:client --personal --name='TaskManager Personal Access Client'"
         ]
     },
     "extra": {

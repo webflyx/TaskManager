@@ -18,13 +18,25 @@ class DatabaseSeeder extends Seeder
     {
         User::factory(10)->create();
 
-        User::factory()->create([
-            'username' => 'serg',
-            'email' => 'serg18@gmail.com',
-        ]);
-
         Project::factory(10)->create();
 
         Task::factory(100)->create();
+
+
+        $admin = User::factory()->create([
+            'username' => 'admin',
+            'email' => 'admin@gmail.com',
+        ]);
+
+        for ($i = 0; $i < 10; $i++){
+            $project = Project::factory(1)->create([
+                'user_id' => $admin->id,
+            ]);
+
+            Task::factory(rand(4,20))->create([
+                'project_id' => $project[0]->id,
+            ]);
+        }
+
     }
 }
